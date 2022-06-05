@@ -7,7 +7,7 @@ public class DBConnection {
 
     private static final String USERNAME="root";
 
-    private static final String PASS="24038304937@kalerantes";
+    private static final String PASS="***********";
 
     public Connection createConnection() {
         Connection connection=null;
