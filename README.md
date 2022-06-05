@@ -1,3 +1,2 @@
 # Coding-Bootcamp-CRUD
-About
-A CRUD operation for a School with classes(COURSE,STUDENT,TRAINER,ASSIGNMENT) imlemented with JAVA,MYSQL
+A CRUD operation for a School classes(COURSE,STUDENT,TRAINER,ASSIGNMENT) imlemented with JAVA,MYSQL!
