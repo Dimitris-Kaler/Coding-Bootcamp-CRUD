@@ -4,30 +4,16 @@ public class Assignment {
     private int id;
     private String title;
     private String description;
+    private int max_oral_mark;
+    private int max_total_mark;
+    private Date sub_date_time;
 
-    private int maxOralMark;
-    private int maxTotalMark;
-    private Date subDateTime;
-
-    Assignment(int id,String title,String description,int maxOralMark,int maxTotalMark,Date subDateTime ){
+    Assignment(int id,String title,String description,int max_oral_mark,int max_total_mark,Date sub_date_time ){
         this.id=id;
         this.title=title;
         this.description=description;
-        this.maxOralMark=maxOralMark;
-        this.maxTotalMark=maxTotalMark;
-        this.subDateTime=subDateTime;
-    }
-    Assignment(String title,String description,int maxOralMark,int maxTotalMark,Date subDateTime ){
-        this.title=title;
-        this.description=description;
-        this.maxOralMark=maxOralMark;
-        this.maxTotalMark=maxTotalMark;
-        this.subDateTime=subDateTime;
-    }
-
-
-    public int getId(){
-        return id;
+        this.max_oral_mark=max_oral_mark;
+        this.max_total_mark=max_total_mark;
     }
 
     public String getTitle() {
@@ -46,33 +32,28 @@ public class Assignment {
         this.description = description;
     }
 
-    public int getMaxOralMark() {
-        return maxOralMark;
+    public int getMax_oral_mark() {
+        return max_oral_mark;
     }
 
-    public void setMax_oral_mark(int maxOralMark) {
-        this.maxOralMark= maxOralMark;
+    public void setMax_oral_mark(int max_oral_mark) {
+        this.max_oral_mark = max_oral_mark;
     }
 
-    public int getMaxTotalMark() {
-        return maxTotalMark;
+    public int getMax_total_mark() {
+        return max_total_mark;
     }
 
-    public void setMaxTotalMark(int max_total_mark) {
-        this.maxTotalMark = maxTotalMark;
+    public void setMax_total_mark(int max_total_mark) {
+        this.max_total_mark = max_total_mark;
     }
 
-    public Date getSubDateTime() {
-        return subDateTime;
+    public Date getSub_date_time() {
+        return sub_date_time;
     }
 
-    public void setSub_date_time(Date subDateTime) {
-        this.subDateTime = subDateTime;
-    }
-
-    public String toString(){
-        return "id: "+id+" title: "+title+ " description: "+description+" "+" MaxOralMark: "+maxOralMark+" MaxTotalMark:"+ maxTotalMark +" SubDateTime: "+ subDateTime;
+    public void setSub_date_time(Date sub_date_time) {
+        this.sub_date_time = sub_date_time;
     }
 }
-
 

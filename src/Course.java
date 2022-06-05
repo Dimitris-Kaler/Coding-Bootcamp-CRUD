@@ -1,48 +1,46 @@
 import java.util.Date;
+//import java.time.LocalDate;
 
 public class Course {
-
     private int id;
-
     private String title;
-
     private String stream;
-
     private String type;
+    private Date start_date;
+    private Date end_date;
 
-    private Date startDate;
 
-    private Date endDate;
-    Course(int id,String title,String stream,String type,Date startDate,Date endDate){
+    Course(String title,String stream,String type,Date start_date,Date end_date){
+        this.title=title;
+        this.stream=stream;
+        this.type=type;
+        this.start_date=start_date;
+        this.end_date=end_date;
+
+    }
+
+
+
+    Course(int id,String title,String stream,String type,Date start_date,Date end_date){
         this.id=id;
         this.title=title;
         this.stream=stream;
         this.type=type;
-        this.startDate=startDate;
-        this.endDate=endDate;
-    }
-
-
-
-    Course(String title, String stream, String type, Date startDate, Date endDate){
-        this.title=title;
-        this.stream=stream;
-        this.type=type;
-        this.startDate=startDate;
-        this.endDate=endDate;
+        this.start_date=start_date;
+        this.end_date=end_date;
 
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
-    public String getTitle(){
-        return title;
 
+    public String getTitle() {
+        return title;
     }
 
-    public void setTitle(String title){
-        this.title=title;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getStream() {
@@ -52,6 +50,7 @@ public class Course {
     public void setStream(String stream) {
         this.stream = stream;
     }
+
     public String getType() {
         return type;
     }
@@ -60,28 +59,24 @@ public class Course {
         this.type = type;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getStart_date() {
+        return start_date;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setStart_date(Date start_date) {
+        this.start_date = start_date;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Date getEnd_date() {
+        return end_date;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setEnd_date(Date end_date) {
+        this.end_date = end_date;
     }
-
-
-
     public String toString(){
-        return "id: "+id+" title: "+" stream: "+stream+" "+" type: "+type+" start_date:"+ startDate +" end_date: "+ endDate;
+        return "id: "+id+" title: "+" stream: "+stream+" "+" type: "+type+" start_date:"+start_date+" end_date: "+end_date;
+
     }
-
-
 }
 

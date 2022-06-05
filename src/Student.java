@@ -1,68 +1,51 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Student {
     private int id;
-    private String firstName;
-    private String lastName;
-    private Date dateOfBirth;
-    private int tuitionFees;
+    private String first_name;
+    private String last_name;
+    private LocalDate date_of_birth;
+    private int tuition_fees;
 
-    Student(int id, String firstName,String lastName,Date dateOfBirth,int tuitionFees){
+    Student(int id, String first_name,String last_name,LocalDate date_of_birth,int tuition_fees){
         this.id=id;
-        this.firstName=firstName;
-        this.lastName=lastName;
-        this.dateOfBirth=dateOfBirth;
-        this.tuitionFees=tuitionFees;
+        this.first_name=first_name;
+        this.last_name=last_name;
+        this.date_of_birth=date_of_birth;
+        this.tuition_fees=tuition_fees;
 
     }
 
-    Student(String firstName,String lastName,Date dateOfBirth,int tuitionFees){
-        this.firstName=firstName;
-        this.lastName=lastName;
-        this.dateOfBirth=dateOfBirth;
-        this.tuitionFees=tuitionFees;
-
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public int getId(){
-        return id;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public LocalDate getDate_of_birth() {
+        return date_of_birth;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setDate_of_birth(LocalDate date_of_birth) {
+        this.date_of_birth = date_of_birth;
     }
 
-    public Date getDateOfBirth() {
-        return dateOfBirth;
+    public int getTuition_fees() {
+        return tuition_fees;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setTuition_fees(int tuition_fees) {
+        this.tuition_fees = tuition_fees;
     }
-
-    public int getTuitionFees() {
-        return tuitionFees;
-    }
-
-    public void setTuitionFees(int tuitionFees) {
-        this.tuitionFees = tuitionFees;
-    }
-
-    public String toString(){
-        return "id: "+id+" First_Name: "+firstName+" Last_Name: "+lastName+" DateOfBirth: "+ dateOfBirth+" tuitionFees: "+tuitionFees+" !!";
-    }
-
 }
 
