@@ -2,22 +2,34 @@ import java.util.Date;
 import java.util.List;
 
 public class CourseTest {
+
     public static void main(String[] args) {
-        Course course=new Course("cb4321","javase","Part-time",new Date(),new Date());
-        CourseCrudServices ccs=new CourseCrudServices();
-        ccs.save(course);
-        System.out.println(course.getTitle());
+        Course course=new Course("JAVABASICS","Stream","Part-Time",new Date(),new Date());
+        CourseWriter cw=new CourseWriter();
 
-       List<Course> courseList=ccs.findAll();
-       for(int i=0; i<courseList.size(); i++){
-           System.out.println(courseList.get(i));
-       }
-        System.out.println("The course you are looking for is:");
-     System.out.println(ccs.findById(1));
+        cw.save(course);
+        CourseReader cr= new CourseReader();
+        System.out.println(cr.findAll());
 
-     ccs.delete(11);
-     Course up=new Course(1,"CB128","SOLIDITY","Part-time",new Date(),new Date());
-     ccs.update(up);
+        List<Course> mpa=cr.findAll();
+        for(int i=0;i<mpa.size();i++){
+            System.out.println(mpa.get(i));
+            System.out.println(mpa.get(i).getTitle());
+        }
+
+        /**DELETE COURSE */
+        CourseDeleter cd=new CourseDeleter();
+
+        cd.delete(10);
+
+
+        /**READ SPECIFIC COURSE*/
+        CourseSpecificReader csr=new CourseSpecificReader();
+        System.out.println("THe course you aks is: "+csr.findById(1));
+
+        /**UPDATE COURSE**/
+
+        CourseUpdater cup=new CourseUpdater();
+        cup.update(new Course(2,"Solidity","Stream","Full-Time",new Date(),new Date()));
     }
-
 }
