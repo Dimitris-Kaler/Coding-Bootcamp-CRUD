@@ -45,12 +45,30 @@ public class TrainerCrudServices implements CrudMethods<Trainer> {
     }
 
     private void mapTrainerToSqlStatement1(PreparedStatement ps ,Scanner sc)throws SQLException{
-        System.out.print("Type Trainer's firstName: ");
-        ps.setString(1,sc.nextLine());
-        System.out.print("Type Trainer's lastName: ");
-        ps.setString(2, sc.nextLine());
-        System.out.print("Type Trainer's subject: ");
-        ps.setString(3, sc.nextLine());
+        final String quote1="Type Trainer's firstName: ";
+        final String quote2="Type Trainer's lastName: ";
+        final String quote3="Type Trainer's subject: ";
+        stringValidation(ps,sc,1,quote1);
+        stringValidation(ps,sc,2,quote2);
+        stringValidation(ps,sc,3,quote3);
+        sc.close();
+
+    }
+
+    private void stringValidation(PreparedStatement ps ,Scanner sc,int paramIndex,String quote) throws SQLException {
+
+        System.out.print(quote);
+        while(true) {
+            if (sc.hasNext("[a-zA-Z]+$") ||sc.nextLine().isEmpty()) {
+
+                ps.setString(paramIndex, sc.nextLine().trim());
+                break;
+            } else {
+                System.out.println("Only letters please!!");
+                System.out.print(quote);
+                ps.setString(paramIndex, sc.nextLine().trim());
+            }
+        }
 
     }
 
