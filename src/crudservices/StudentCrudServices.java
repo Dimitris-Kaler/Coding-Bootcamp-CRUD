@@ -21,6 +21,7 @@ public class StudentCrudServices implements CrudMethods<Student> {
     public void save1(Scanner sc) {
         Connection connection=createConnection();
         saveStudent1(connection,sc);
+
     }
 
     private void saveStudent1(Connection connection,Scanner sc){
@@ -33,6 +34,7 @@ public class StudentCrudServices implements CrudMethods<Student> {
         catch(SQLException | ParseException pe){
             pe.printStackTrace();
         }finally{
+            sc.close();
             releaseResources(connection,ps);
         }
 
@@ -52,6 +54,7 @@ public class StudentCrudServices implements CrudMethods<Student> {
        takeDate(ps,sc);
        System.out.print("Type Student's Tuition Fees: ");
        ps.setInt(4,sc.nextInt());
+
 
     }
 

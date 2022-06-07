@@ -15,10 +15,11 @@ public class TrainerCrudServices implements CrudMethods<Trainer> {
 
 
 
-    /**INSERT TRAINER WITH SCANNER*/
+    /*******************  INSERT TRAINER WITH SCANNER FROM KEYBOARD ******************/
     public void save1(Scanner sc){
         Connection connection=createConnection();
         saveTrainer1(connection,sc);
+
 
 
 
@@ -33,6 +34,7 @@ public class TrainerCrudServices implements CrudMethods<Trainer> {
         catch(SQLException e){
             e.printStackTrace();
         }finally{
+            sc.close();
             releaseResources(connection,ps);
         }
 
@@ -51,7 +53,7 @@ public class TrainerCrudServices implements CrudMethods<Trainer> {
         stringValidation(ps,sc,1,quote1);
         stringValidation(ps,sc,2,quote2);
         stringValidation(ps,sc,3,quote3);
-        sc.close();
+
 
     }
 
@@ -59,7 +61,7 @@ public class TrainerCrudServices implements CrudMethods<Trainer> {
 
         System.out.print(quote);
         while(true) {
-            if (sc.hasNext("[a-zA-Z]+$") ||sc.nextLine().isEmpty()) {
+            if (sc.hasNext("[a-zA-Z]+$")) {
 
                 ps.setString(paramIndex, sc.nextLine().trim());
                 break;

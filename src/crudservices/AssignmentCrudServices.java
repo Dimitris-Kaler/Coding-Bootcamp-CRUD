@@ -33,6 +33,7 @@ public class AssignmentCrudServices implements CrudMethods<Assignment> {
             e.printStackTrace();
         }
         finally{
+            sc.close();
             releaseResources(connection,ps);
         }
 

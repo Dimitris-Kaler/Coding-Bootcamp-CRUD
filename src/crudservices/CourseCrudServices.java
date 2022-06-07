@@ -36,6 +36,7 @@ public class CourseCrudServices implements CrudMethods<Course> {
         catch(SQLException | ParseException pe){
             pe.printStackTrace();
         }finally{
+            sc.close();
             releaseResources(connection,ps);
         }
 
