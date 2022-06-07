@@ -1,3 +1,4 @@
+package entities;
 import java.util.Date;
 
 public class Assignment {
@@ -9,7 +10,7 @@ public class Assignment {
     private int maxTotalMark;
     private Date subDateTime;
 
-    Assignment(int id,String title,String description,int maxOralMark,int maxTotalMark,Date subDateTime ){
+   public Assignment(int id,String title,String description,int maxOralMark,int maxTotalMark,Date subDateTime ){
         this.id=id;
         this.title=title;
         this.description=description;
@@ -17,7 +18,7 @@ public class Assignment {
         this.maxTotalMark=maxTotalMark;
         this.subDateTime=subDateTime;
     }
-    Assignment(String title,String description,int maxOralMark,int maxTotalMark,Date subDateTime ){
+   public  Assignment(String title,String description,int maxOralMark,int maxTotalMark,Date subDateTime ){
         this.title=title;
         this.description=description;
         this.maxOralMark=maxOralMark;

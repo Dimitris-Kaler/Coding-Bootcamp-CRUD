@@ -1,3 +1,5 @@
+package entities;
+
 import java.sql.Connection;
 
 public class Trainer {
@@ -6,13 +8,13 @@ public class Trainer {
     private String lastName;
     private String subject;
 
-    Trainer(int id,String first_name,String last_name,String subject){
+  public  Trainer(int id,String first_name,String last_name,String subject){
         this.id=id;
         this.firstName=first_name;
         this.lastName=last_name;
         this.subject=subject;
     }
-    Trainer(String firstName,String lastName,String subject){
+  public  Trainer(String firstName,String lastName,String subject){
         this.firstName=firstName;
         this.lastName=lastName;
         this.subject=subject;

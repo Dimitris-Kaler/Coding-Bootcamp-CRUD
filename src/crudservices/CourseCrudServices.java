@@ -1,11 +1,83 @@
+package crudservices;
+
+import entities.Course;
+
 import java.sql.*;
+import java.text.DateFormat;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-public class CourseCrudServices implements CrudMethods<Course>{
+
+public class CourseCrudServices implements CrudMethods<Course> {
 
 
-@Override
+
+    /****************SAVE COURSES WITH SCANNER ************************/
+    @Override
+    public void save1(Scanner sc) {
+        Connection connection=createConnection();
+        saveCourse1(connection,sc);
+
+
+    }
+
+    private void saveCourse1(Connection connection ,Scanner sc){
+        final String SQL="INSERT INTO Courses (title,stream,type,start_date,end_date) VALUES (?,?,?,?,?)";
+        PreparedStatement ps=null;
+
+        try {
+            ps = connection.prepareStatement(SQL);
+            insertCourse1(ps,sc);
+        }
+        catch(SQLException | ParseException pe){
+            pe.printStackTrace();
+        }finally{
+            releaseResources(connection,ps);
+        }
+
+    }
+
+    private void insertCourse1(PreparedStatement ps,Scanner sc) throws SQLException, ParseException {
+        mapCourseToSqlStatement1(ps,sc);
+        ps.executeUpdate();
+    }
+
+    private void mapCourseToSqlStatement1(PreparedStatement ps,Scanner sc) throws SQLException, ParseException {
+        System.out.print("Type Course's Title: ");
+        ps.setString(1,sc.nextLine());
+        System.out.print("Type Course's Stream: ");
+        ps.setString(2, sc.nextLine());
+        System.out.print("Type Course's Type: ");
+        ps.setString(3, sc.nextLine());
+        System.out.print("Type Course's Start Date: ");
+        takeDate(ps,sc,4);
+        System.out.print("Type Course's End Date: ");
+        takeDate(ps,sc,5);
+
+
+    }
+
+    private void takeDate(PreparedStatement ps,Scanner sc,int numberOfSet) throws ParseException, SQLException {
+        DateFormat formatter=new SimpleDateFormat("yyyy-mm-dd" );
+        String dateString=sc.next();
+        Date date = formatter.parse(dateString);
+        ps.setDate( numberOfSet, new java.sql.Date(date.getTime()));
+
+    }
+
+    /**********************************************/
+
+    /***** FIND ALL COURSES *********************/
+
+
+
+
+
+    @Override
     public List<Course> findAll() {
         Connection connection = createConnection();
        return findAllCourses(connection);
@@ -41,6 +113,10 @@ public class CourseCrudServices implements CrudMethods<Course>{
 
 
     }
+
+    /*******************************/
+
+    /***************** INSERT STUDENTS ************************/
 
 
     @Override
@@ -85,7 +161,10 @@ public class CourseCrudServices implements CrudMethods<Course>{
             e.printStackTrace();
         }
     }
+/***************************************/
 
+
+/**************** FIND SPECIFIC COURSE ************************/
 
 @Override
     public Course findById(int id){
@@ -117,6 +196,8 @@ public class CourseCrudServices implements CrudMethods<Course>{
     }
 
 
+
+
     private Course findCourse(PreparedStatement ps,int id,Course course)throws SQLException{
         ps.setInt(1,id);
         ResultSet rs= ps.executeQuery();
@@ -132,9 +213,12 @@ public class CourseCrudServices implements CrudMethods<Course>{
         return course;
 
 
-
-
     }
+
+    /********************************************************************/
+
+
+    /**************************** DELETE ********************************/
 
     @Override
     public void delete(int id){
@@ -164,12 +248,14 @@ public class CourseCrudServices implements CrudMethods<Course>{
         ps.setInt(1,id);
         int result=ps.executeUpdate();
         if(result==1){
-            System.out.println("Course has succesfully Deleted!!!");
+            System.out.println("entities.Course has succesfully Deleted!!!");
 
         }
 
     }
+/********************************************/
 
+/************************ UPDATE COURSE ***************************/
 
     @Override
     public void update(Course course){
@@ -201,7 +287,7 @@ public class CourseCrudServices implements CrudMethods<Course>{
         setNewValuesToCourse(ps,course);
         int result=ps.executeUpdate();
             if(result==1){
-                System.out.println("Course has successfully updated");
+                System.out.println("entities.Course has successfully updated");
             }
     }
     private void setNewValuesToCourse(PreparedStatement ps,Course course)throws SQLException{

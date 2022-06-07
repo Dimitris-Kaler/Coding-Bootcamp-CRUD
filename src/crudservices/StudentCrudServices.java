@@ -1,12 +1,70 @@
+package crudservices;
+
+import entities.Student;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
-public class StudentCrudServices implements CrudMethods<Student>{
+public class StudentCrudServices implements CrudMethods<Student> {
 
+/******************* INSERT STUDENT FROM SCANNER **************/
+    @Override
+    public void save1(Scanner sc) {
+        Connection connection=createConnection();
+        saveStudent1(connection,sc);
+    }
+
+    private void saveStudent1(Connection connection,Scanner sc){
+        final String SQL="INSERT INTO Students (first_name,last_name,date_of_birth,tuition_fees)VALUES (?,?,?,?)";
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareStatement(SQL);
+            insertStudent1(ps,sc);
+        }
+        catch(SQLException | ParseException pe){
+            pe.printStackTrace();
+        }finally{
+            releaseResources(connection,ps);
+        }
+
+    }
+
+    private void insertStudent1(PreparedStatement ps,Scanner sc) throws SQLException,ParseException{
+        mapStudentToSqlStatement1(ps,sc);
+        ps.executeUpdate();
+    }
+
+   private void  mapStudentToSqlStatement1(PreparedStatement ps,Scanner sc)throws SQLException,ParseException{
+       System.out.print("Type Student's FirstName: ");
+       ps.setString(1,sc.nextLine());
+       System.out.print("Type Student's LastName: ");
+       ps.setString(2, sc.nextLine());
+       System.out.print("Type Student's Date Of Birth: ");
+       takeDate(ps,sc);
+       System.out.print("Type Student's Tuition Fees: ");
+       ps.setInt(4,sc.nextInt());
+
+    }
+
+    private void takeDate(PreparedStatement ps,Scanner sc) throws SQLException, ParseException {
+        DateFormat formatter=new SimpleDateFormat("yyyy-mm-dd" );
+        String dateString=sc.next();
+        Date date = formatter.parse(dateString);
+        ps.setDate( 3, new java.sql.Date(date.getTime()));
+    }
+
+    /********************************************************************/
+
+    /****************FIND ALL STUDENTS *******************************/
     @Override
     public List<Student> findAll() {
         Connection connection = createConnection();
@@ -39,11 +97,17 @@ public class StudentCrudServices implements CrudMethods<Student>{
         ResultSet rs=ps.executeQuery();
 
         while(rs.next()){
-            Student student=new Student(rs.getInt("id"),rs.getString("first_name"),rs.getString("last_name"),rs.getDate("date_of_birth"),rs.getInt("tuition_feees"));
+            Student student=new Student(rs.getInt("id"),rs.getString("first_name"),rs.getString("last_name"),rs.getDate("date_of_birth"),rs.getInt("tuition_fees"));
             list.add(student);
         }
 
     }
+
+    /****************************************************************************/
+
+
+
+    /**********************INSERT STUDENTS****************************************/
 
     @Override
     public void save(Student student) {
@@ -118,6 +182,9 @@ public class StudentCrudServices implements CrudMethods<Student>{
     }
 
 
+    /*************** FIND SPECIFIC STUDENT ***********************************/
+
+
     private Student findStudent(PreparedStatement ps,int id,Student student)throws SQLException{
         ps.setInt(1,id);
         ResultSet rs= ps.executeQuery();
@@ -127,13 +194,17 @@ public class StudentCrudServices implements CrudMethods<Student>{
 
 
         }else{
-            System.out.println("No Student founded with this Id");
+            System.out.println("No entities.Student founded with this Id");
         }
 
         return student;
 
 
     }
+    /*********************************************************************************/
+
+
+    /**************** DELETE STUDENT ***********************************************/
     @Override
     public void delete(int id){
         Connection connection=createConnection();
@@ -162,11 +233,15 @@ public class StudentCrudServices implements CrudMethods<Student>{
         ps.setInt(1,id);
         int result=ps.executeUpdate();
         if(result==1){
-            System.out.println("Student has succesfully Deleted!!!");
+            System.out.println("entities.Student has succesfully Deleted!!!");
 
         }
 
     }
+
+    /*************************************************************************/
+
+    /********************* UPDATE STUDENT ***********************************/
     @Override
     public void update(Student student){
         Connection connection=createConnection();
@@ -197,7 +272,7 @@ public class StudentCrudServices implements CrudMethods<Student>{
         setNewValuesToStudent(ps,student);
         int result=ps.executeUpdate();
         if(result==1){
-            System.out.println("Student has successfully updated");
+            System.out.println("entities.Student has successfully updated");
         }
     }
     private void setNewValuesToStudent(PreparedStatement ps,Student student)throws SQLException{

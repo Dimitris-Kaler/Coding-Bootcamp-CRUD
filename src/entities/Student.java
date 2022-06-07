@@ -1,3 +1,5 @@
+package entities;
+
 import java.util.Date;
 
 public class Student {
@@ -7,7 +9,7 @@ public class Student {
     private Date dateOfBirth;
     private int tuitionFees;
 
-    Student(int id, String firstName,String lastName,Date dateOfBirth,int tuitionFees){
+  public  Student(int id, String firstName,String lastName,Date dateOfBirth,int tuitionFees){
         this.id=id;
         this.firstName=firstName;
         this.lastName=lastName;
@@ -16,7 +18,7 @@ public class Student {
 
     }
 
-    Student(String firstName,String lastName,Date dateOfBirth,int tuitionFees){
+  public  Student(String firstName,String lastName,Date dateOfBirth,int tuitionFees){
         this.firstName=firstName;
         this.lastName=lastName;
         this.dateOfBirth=dateOfBirth;

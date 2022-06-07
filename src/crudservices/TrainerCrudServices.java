@@ -1,11 +1,65 @@
+package crudservices;
+
+import entities.Trainer;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-public class TrainerCrudServices implements CrudMethods<Trainer>{
+public class TrainerCrudServices implements CrudMethods<Trainer> {
+
+
+
+
+    /**INSERT TRAINER WITH SCANNER*/
+    public void save1(Scanner sc){
+        Connection connection=createConnection();
+        saveTrainer1(connection,sc);
+
+
+
+    }
+
+        private void saveTrainer1(Connection connection,Scanner sc){
+        final String SQL="INSERT INTO Trainers (first_name,last_name,subject) VALUES (?,?,?)";
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareStatement(SQL);
+            insertTrainer1(ps,sc);}
+        catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            releaseResources(connection,ps);
+        }
+
+    }
+
+        private void insertTrainer1(PreparedStatement ps,Scanner sc)throws SQLException{
+        mapTrainerToSqlStatement1(ps,sc);
+        ps.executeUpdate();
+
+    }
+
+    private void mapTrainerToSqlStatement1(PreparedStatement ps ,Scanner sc)throws SQLException{
+        System.out.print("Type Trainer's firstName: ");
+        ps.setString(1,sc.nextLine());
+        System.out.print("Type Trainer's lastName: ");
+        ps.setString(2, sc.nextLine());
+        System.out.print("Type Trainer's subject: ");
+        ps.setString(3, sc.nextLine());
+
+    }
+
+
+
+    /****************************************/
+
+
+    /*****FIND ALL TRAINERS*******/
 
     @Override
     public List<Trainer> findAll() {
@@ -44,6 +98,9 @@ public class TrainerCrudServices implements CrudMethods<Trainer>{
         }
 
     }
+
+
+    /******CLASSIC INSERT WITH CREATING NEW OBJECT ******/
 
     @Override
     public void save(Trainer trainer) {
@@ -86,6 +143,12 @@ public class TrainerCrudServices implements CrudMethods<Trainer>{
             e.printStackTrace();
         }
     }
+
+    /*****************************************************/
+
+
+
+    /*********FIND SPECIFIC TRAINER*********************/
     @Override
     public Trainer findById(int id){
         Connection connection=createConnection();
@@ -134,6 +197,8 @@ public class TrainerCrudServices implements CrudMethods<Trainer>{
 
 
     }
+
+    /****************DELETE TRAINER ************/
     @Override
     public void delete(int id){
         Connection connection=createConnection();
@@ -162,11 +227,16 @@ public class TrainerCrudServices implements CrudMethods<Trainer>{
         ps.setInt(1,id);
         int result=ps.executeUpdate();
         if(result==1){
-            System.out.println("Course has succesfully Deleted!!!");
+            System.out.println("entities.Course has succesfully Deleted!!!");
 
         }
 
     }
+
+    /**************************************************/
+
+
+    /************ UPDATE TRAINER ********************/
     @Override
     public void update(Trainer trainer){
         Connection connection=createConnection();
@@ -197,7 +267,7 @@ public class TrainerCrudServices implements CrudMethods<Trainer>{
         setNewValuesToCourse(ps,trainer);
         int result=ps.executeUpdate();
         if(result==1){
-            System.out.println("Course has successfully updated");
+            System.out.println("entities.Course has successfully updated");
         }
     }
     private void setNewValuesToCourse(PreparedStatement ps,Trainer trainer)throws SQLException{

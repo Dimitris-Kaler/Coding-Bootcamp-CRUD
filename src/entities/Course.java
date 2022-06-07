@@ -1,3 +1,5 @@
+package entities;
+
 import java.util.Date;
 
 public class Course {
@@ -13,7 +15,7 @@ public class Course {
     private Date startDate;
 
     private Date endDate;
-    Course(int id,String title,String stream,String type,Date startDate,Date endDate){
+   public Course(int id,String title,String stream,String type,Date startDate,Date endDate){
         this.id=id;
         this.title=title;
         this.stream=stream;
@@ -24,7 +26,7 @@ public class Course {
 
 
 
-    Course(String title, String stream, String type, Date startDate, Date endDate){
+  public  Course(String title, String stream, String type, Date startDate, Date endDate){
         this.title=title;
         this.stream=stream;
         this.type=type;

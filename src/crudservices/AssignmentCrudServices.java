@@ -1,13 +1,69 @@
+package crudservices;
+
+import entities.Assignment;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
-public class AssignmentCrudServices implements CrudMethods<Assignment>{
+public class AssignmentCrudServices implements CrudMethods<Assignment> {
 
-        @Override
+/******* INSERT ASSIGNMENT WITH SCANNER CALL FROM KEYBOARD ********/
+    @Override
+    public void save1(Scanner sc) {
+        Connection connection=createConnection();
+        saveAssignment1(connection,sc);
+    }
+
+    private void saveAssignment1(Connection connection,Scanner sc){
+        final String SQL="INSERT INTO Assignments (title,description,max_oral_mark,max_total_mark,sub_date_time) VALUES (?,?,?,?,?)";
+        PreparedStatement ps=null;
+        try{
+            ps=connection.prepareStatement(SQL);
+            insertAssignment1(ps,sc);
+        }catch(SQLException | ParseException e){
+            e.printStackTrace();
+        }
+        finally{
+            releaseResources(connection,ps);
+        }
+
+    }
+
+    private void insertAssignment1(PreparedStatement ps,Scanner sc) throws SQLException, ParseException {
+        mapAssignmentToSqlStatement1(ps,sc);
+        ps.executeUpdate();
+    }
+
+    private void mapAssignmentToSqlStatement1(PreparedStatement ps,Scanner sc) throws SQLException, ParseException {
+        System.out.print("Type Assignment's Title: ");
+        ps.setString(1,sc.nextLine());
+        System.out.print("Type Assignment's Description: ");
+        ps.setString(2, sc.nextLine());
+        System.out.print("Type Assignment's Max Oral Mark: ");
+        ps.setInt(3, sc.nextInt());
+        System.out.print("Type Assignment's Max Total Mark: ");
+        ps.setInt(4, sc.nextInt());
+        System.out.print("Type Assignment's SubDateTime: ");
+        takeDate(ps,sc);
+
+    }
+    private void takeDate(PreparedStatement ps,Scanner sc) throws SQLException, ParseException {
+        DateFormat formatter=new SimpleDateFormat("yyyy-mm-dd" );
+        String dateString=sc.next();
+        Date date = formatter.parse(dateString);
+        ps.setDate( 5, new java.sql.Date(date.getTime()));
+    }
+
+    @Override
         public List<Assignment> findAll() {
             Connection connection = createConnection();
             return findAllAssignments(connection);
@@ -128,7 +184,7 @@ public class AssignmentCrudServices implements CrudMethods<Assignment>{
 //
 
             }else{
-                System.out.println("No Assignment founded with this Id");
+                System.out.println("No entities.Assignment founded with this Id");
             }
 
             return assignment;
@@ -166,7 +222,7 @@ public class AssignmentCrudServices implements CrudMethods<Assignment>{
             ps.setInt(1,id);
             int result=ps.executeUpdate();
             if(result==1){
-                System.out.println("Assignment has succesfully Deleted!!!");
+                System.out.println("entities.Assignment has succesfully Deleted!!!");
 
             }
 
@@ -203,7 +259,7 @@ public class AssignmentCrudServices implements CrudMethods<Assignment>{
             setNewValuesToAssignment(ps,assignment);
             int result=ps.executeUpdate();
             if(result==1){
-                System.out.println("Assignment has successfully updated");
+                System.out.println("entities.Assignment has successfully updated");
             }
         }
         private void setNewValuesToAssignment(PreparedStatement ps,Assignment assignment)throws SQLException{
