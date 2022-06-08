@@ -247,7 +247,7 @@ public class TrainerCrudServices implements CrudMethods<Trainer> {
         ps.setInt(1,id);
         int result=ps.executeUpdate();
         if(result==1){
-            System.out.println("entities.Course has succesfully Deleted!!!");
+            System.out.println("Trainer has succesfully Deleted!!!");
 
         }
 
@@ -287,7 +287,7 @@ public class TrainerCrudServices implements CrudMethods<Trainer> {
         setNewValuesToCourse(ps,trainer);
         int result=ps.executeUpdate();
         if(result==1){
-            System.out.println("entities.Course has successfully updated");
+            System.out.println("Trainer has successfully updated");
         }
     }
     private void setNewValuesToCourse(PreparedStatement ps,Trainer trainer)throws SQLException{
