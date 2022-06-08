@@ -157,7 +157,7 @@ public class TrainerCrudServices implements CrudMethods<Trainer> {
 
     private void releaseResources(Connection connection, PreparedStatement ps) {
         try {
-            ps.close();
+//            ps.close();
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -8,6 +8,11 @@ public class Trainer {
     private String lastName;
     private String subject;
 
+
+    public Trainer(){
+
+    }
+
   public  Trainer(int id,String first_name,String last_name,String subject){
         this.id=id;
         this.firstName=first_name;
